@@ -1,0 +1,622 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <title>Generador de códigos ZOA</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400,700&display=swap" rel="stylesheet">
+        <script type="text/javascript" src="js/bwip-min.js"></script>
+        <script type="text/javascript" src="js/is.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        <style>
+            /**
+            *   ESTILO GENERAL
+            */
+            .centerVH{
+                height: 100%;
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .centerV{
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                align-items: center;
+            }
+            .centerH{
+                display: -webkit-box;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: -webkit-flex;
+                display: flex;
+                justify-content: center;
+            }
+            .col100{
+                float: left;
+                width: 100%;
+            }
+            .col50{
+                float: left;
+                width: 50%;
+            }
+            .sMarginTop{
+                margin-top:8px;
+            }
+            .xlMarginTop{
+                margin-top:40px;
+            }
+            @font-face {
+                font-family: portico;
+                src: url("font/portico.otf") format("opentype");
+            }
+            .bold{
+                font-weight: 700;
+            }
+
+            /*
+            * ESTILO ESPECIFICO
+            */
+            body{
+                margin:0!important;
+                font-family: 'Montserrat', sans-serif;
+            }
+            div{
+                box-sizing: border-box!important;
+            }
+            #header{
+                width:100%;
+                float: left;
+                background-color: black;
+                color:white;
+                padding: 20px 25px;
+                height: fit-content;
+    
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+    
+            }
+            #header span{
+                float: right;
+                font-size: 18px;
+            }
+            #header svg{
+                float: left;
+                width: 100px;
+                fill:white;
+            }
+            input[type="number"], input[type="text"]{
+                border-radius: 10px;
+                border: solid 2px black;
+                padding: 6px;
+                margin-top: 6px;
+            }
+            input, button {
+                outline-width: 0;
+            }  
+            input[type="checkbox"]{
+                width: 16px;
+                height: 16px;
+                margin-left: 15px;
+            }
+            button{
+                height: 38px;
+                border-radius: 10px;
+                border: none;
+                background-color: black;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+            }
+            #controls form{
+                width: 60%;
+            }
+            @media screen and (max-width:640px) {
+                #controls form{
+                    width: 80%;
+                }
+                .col50{
+                    float: left;
+                    width: 100%;
+                }
+            }
+            #controls label, #controls input[type="checkbox"]{
+                float: left;
+            }
+            #controls div{
+                padding: 0px 15px;
+                margin-bottom: 25px;
+            }
+            #navigatorWarning svg{
+                width: 60px;
+            }
+            #navigatorWarning strong{
+                font-size: 30px;
+            }
+            #navigatorWarning .text{
+                padding: 20px;
+            }
+            #instructions li{
+                text-align: left!important;
+                margin-top:8px;
+            }
+            #instructions span{
+                font-size: 18px;
+            }
+            #loading{
+                width: 50px;
+                height: 50px;
+            }
+        </style>
+    </head>    
+
+    <body>
+        <div id="header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 484.86 208.8">
+                <path d="M476.72,339.66l61.84,162.57H490.25l-8.64-22.63h-63l-8.87,22.63H361.34l63.54-162.57Zm-40.47,94.81h28.19l-13.86-36.6Z" transform="translate(-53.71 -339.66)"/><path d="M291.22,339.66a81.29,81.29,0,0,0-81.28,81.28v81.29h81.28a81.3,81.3,0,0,0,81.29-81.29V339.66Zm39.09,81.91a27.93,27.93,0,0,1-29.78,6.25L258,470.34l-16.2-16.19,42.52-42.51a27.89,27.89,0,0,1,38.19-35.17l-18.77,18.77,13.16,13.16,18.77-18.77A28.1,28.1,0,0,1,330.31,421.57Z" transform="translate(-53.71 -339.66)"/><path d="M195.36,339.67,132.15,457.1h63.21v45.13H53.72l63.2-117.44H53.71V339.66Z" transform="translate(-53.71 -339.66)"/><path d="M383.83,508.12l15.35,40.34h-12l-2.14-5.61H369.42l-2.2,5.61h-12L371,508.12Zm-10,23.53h7l-3.45-9.08Z" transform="translate(-53.71 -339.66)"/><path d="M439.54,528.29a20.21,20.21,0,0,1-20.17,20.17H402.56V508.12h16.81a20.23,20.23,0,0,1,20.17,20.17Zm-25.78,9h5.61a9,9,0,0,0,0-17.94h-5.61Z" transform="translate(-53.71 -339.66)"/><path d="M485.52,508.12v40.34H474.29V528.12l-10.07,14.42-10.09-14.42v20.34h-11.2V508.12h10.86L464.22,523l10.41-14.87Z" transform="translate(-53.71 -339.66)"/><path d="M488.91,508.12H500.1v40.34H488.91Z" transform="translate(-53.71 -339.66)"/><path d="M538.21,508.12v40.34H528.14l-13.45-19.21v19.21h-11.2V508.12h10.1L527,527.33V508.12Z" transform="translate(-53.71 -339.66)"/><line class="cls-1" x1="230.64" y1="71.98" x2="188.12" y2="114.49"/>
+            </svg>
+
+            <span class="bold">
+                Generador de códigos
+            </span>
+        </div>
+
+        <div id="controls" class="col100 xlMarginTop" style="display: none">
+            <center>
+                <form>
+                    <div class="col100">
+                        <label class="bold">Código inicial:</label>
+                        <input id="init" type="text" required value="A" class="col100"><br>
+                    </div>
+                    
+                    <div class="col50">
+                        <label class="bold">Tipo 1 - Amarillo:</label><br>
+                        <input id="type1" type="number" required value="0" class="col100"><br>                    
+                        <label class="sMarginTop bold">Tipo 2 - Azul:</label><br>
+                        <input id="type2" type="number" required value="0" class="col100"><br>
+                    </div>
+
+                    <div class="col50">
+                        <label class="bold">Tipo 3 - Rojo:</label><br>
+                        <input id="type3" type="number" required value="0" class="col100"><br>
+                        <label class="sMarginTop bold">Tipo 4 - Pregunta:</label><br>
+                        <input id="type4" type="number" required value="0" class="col100"><br>
+                    </div>
+
+                    <div class="col100">
+                        <label class="bold">¿Código bandera?</label>
+                        <input id="flag" type="checkbox">
+                    </div>
+                
+                    <div class="col100">
+                        <button class="col100">GENERAR</button>
+                        <svg id="loading" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="display:none; margin: auto; shape-rendering: auto;" width="200px" height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                            <circle cx="50" cy="50" fill="none" stroke="#1d0e0b" stroke-width="10" r="35" stroke-dasharray="164.93361431346415 56.97787143782138" transform="rotate(77.9285 50 50)">
+                                <animateTransform attributeName="transform" type="rotate" repeatCount="indefinite" dur="1s" values="0 50 50;360 50 50" keyTimes="0;1"></animateTransform>
+                            </circle>
+                        </svg>
+                    </div>
+                    <div id="instructions" class="col100 xlMarginTop">
+                        <span class="bold">Instrucciones de uso:</span>
+                        <ol>
+                            <li>Instalar la tipografía <strong>"Portico"</strong> en el equipo, <a href="font/portico.otf" download>(Pulsar para descargar)</a>.</li>
+                            <li>Reiniciar el navegador.</li>
+                            <li>Seleccionar la cantidad de códigos segun el tipo y el código de letras inicial a partir del cual se generará.</li>
+                            <li>Pulsar en <strong>"GENERAR"</strong> y esparar la apertura de la vista de impresión.</li>
+                            <li>Marcar la opción "Graficos de fondo" y desmarcar "Cabeceras y pies" en las aopciones de la ventana de impresión.</li>
+                            <li>Pulsar en imprimir.</li>
+                        </ol>
+                    </div>
+                </form>
+            </center>
+        </div>
+        
+        <div id="container" style="display: none; float: left; ">
+
+        </div>
+
+        <div id="navigatorWarning" class="col100 xlMarginTop" style="display: none">
+            
+            <div class="text col100">
+                <center>
+                    <strong>Navegador incompatible</strong><br><br>
+                    <span>Utiliza Google Chrome en su versión para de escritorio para usar la aplicación.</span>
+                </center>
+            </div>
+            <center>
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 512.023 512.023" style="enable-background:new 0 0 512.023 512.023;" xml:space="preserve">
+                    <path style="fill:#F44336;" d="M493.248,160.021H256.021c-53.019-0.052-96.042,42.886-96.095,95.905
+                        c-0.016,16.468,4.204,32.663,12.255,47.028L53.568,99.434c86.393-111.815,247.073-132.423,358.888-46.03
+                        C448.365,81.149,476.249,117.946,493.248,160.021z"/>
+                    <path style="fill:#FFC107;" d="M512.021,256.021c-0.118,141.336-114.664,255.882-256,256c-10.704,0.04-21.397-0.673-32-2.133
+                        l115.2-205.867c26.403-45.964,10.664-104.625-35.2-131.2c-14.521-8.407-31.008-12.824-47.787-12.8h237.013
+                        C505.705,190.491,512.083,223.103,512.021,256.021z"/>
+                    <path style="fill:#4CAF50;" d="M339.221,304.021l-115.2,205.867h-0.213C83.62,492.176-15.666,364.172,2.046,223.984
+                        C7.779,178.609,25.57,135.6,53.568,99.434l118.613,203.52l0.64,1.067c26.451,45.95,85.143,61.757,131.093,35.307
+                        C318.592,330.879,330.773,318.698,339.221,304.021z"/>
+                    <path style="fill:#F44336;" d="M339.221,304.021c-26.451,45.95-85.143,61.757-131.093,35.307
+                        c-14.677-8.449-26.858-20.63-35.307-35.307l-0.64-1.067c-25.921-46.251-9.439-104.758,36.812-130.679
+                        c14.366-8.051,30.561-12.271,47.028-12.255h0.213c16.779-0.024,33.266,4.393,47.787,12.8
+                        C349.886,199.396,365.624,258.057,339.221,304.021z"/>
+                    <path style="fill:#2196F3;" d="M339.221,304.021c-26.451,45.95-85.143,61.757-131.093,35.307
+                        c-14.677-8.449-26.858-20.63-35.307-35.307l-0.64-1.067c-25.921-46.251-9.439-104.758,36.812-130.679
+                        c14.366-8.051,30.561-12.271,47.028-12.255h0.213c16.779-0.024,33.266,4.393,47.787,12.8
+                        C349.886,199.396,365.624,258.057,339.221,304.021z"/>
+                    <path style="fill:#FAFAFA;" d="M255.659,362.688c-18.598-0.002-36.868-4.903-52.971-14.208
+                        c-16.237-9.391-29.722-22.883-39.104-39.125c-29.455-51.018-11.975-116.254,39.043-145.709c16.233-9.372,34.65-14.301,53.395-14.291
+                        c58.91-0.046,106.704,47.674,106.749,106.584c0.015,18.752-4.915,37.176-14.291,53.416l0,0
+                        C329.256,342.405,293.893,362.724,255.659,362.688z M256.213,170.688c-30.613-0.163-58.955,16.13-74.219,42.667
+                        c-23.564,40.86-9.543,93.087,31.317,116.651s93.087,9.543,116.651-31.317l0,0c23.564-40.814,9.58-93.003-31.234-116.568
+                        c-12.922-7.46-27.574-11.402-42.494-11.432H256.213z"/>
+                </svg>
+            </center>
+        </div>
+    </body>
+
+    <script>
+   
+        $(document).ready(function () {
+            //Detectar navegador en uso
+            if(is.chrome() == false || is.edge() || is.opera() || is.safari() || is.ios() || is.iphone() || is.android()){
+                $("#controls").hide();
+                $("#navigatorWarning").show();
+                
+            }else{
+                $("#controls").show();
+                $("#navigatorWarning").hide();
+            }
+
+            //Limitar la entrada de caracteres en el campo de texto
+            $('#init').keypress(function(e){
+                var txt = String.fromCharCode(e.which);
+                console.log(txt + ' : ' + e.which);
+                if(!txt.match(/[A-Za-z]/)) {
+                    return false;
+                }
+                
+            });
+            //Pasar a mayuscula los caracteres en el campo de texto
+            $('#init').keyup(function(e){
+                $('#init').val($('#init').val().toUpperCase());
+            });
+            
+            //Evitar el envio del formulario
+            $("form").submit(function(event){
+                event.preventDefault();
+            });
+
+            //Accion al pulsar el boton de generar
+            $("form button").on("click", function(){
+                var type1 = $("#type1").val();
+                var type2 = $("#type2").val();
+                var type3 = $("#type3").val();
+                var type4 = $("#type4").val();
+                var initWord = $("#init").val();
+                var flag =  $('#flag').is(':checked');
+                generateCodes(parseInt(type1),parseInt(type2),parseInt(type3),parseInt(type4),flag,initWord);
+            });
+        });
+
+        //-----------------------------------------------------------------------------------------------------------------------------
+
+        /**
+        * METODO PARA GENERAR CODIGO A PARTIR DE LOS PARAMETROS PASADOS
+        */
+        function generateCodes(t1, t2, t3, t4, flag, initWord){
+            //Limpiar contenido previo
+            $("#container").html("");
+                              
+            //Obtener total de codigos a generar
+            total = t1+t2+t3+t4;
+            if(flag){ total++; }
+
+            //No hacer nada si no se indica ninguna cantidad de codigos
+            if(total<=0){
+                return null;
+            }
+
+            //Activar logo de carga
+            $("#loading").show();
+            $("form button").hide();
+
+            //Generar nombres para los codigos
+            letters = incremtLetters( total-1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", initWord);
+
+            t2 += t1;
+            t3 += t2;
+            t4 += t3;
+
+            //Generar cada uno de los códigos
+            for(var i=0; i<letters.length; i++){
+                var strType;
+                var isFlag=false;
+                var display=""
+
+                //Comprobar de que tipo es el codigo que se va a generar
+                if(i<t1){
+                    strType="TIPO 1";
+                    console.log("t1");
+                }else if(i<t2){
+                    strType="TIPO 2";
+                    console.log("t2");
+                }else if(i<t3){
+                    strType="TIPO 3";
+                    console.log("t3");
+                }else if(i<t4){
+                    strType="TIPO ?";
+                    console.log("t4");
+                }else{
+                    isFlag=true;
+                    display="display:none";
+                    console.log("bandera");
+                }
+
+                //Elemento div imprimible
+                var element = 
+                    `<div id="code`+i+`" class="code" style="
+                        width: 1030px;
+                        height: 650px;
+                        background-color: white;
+                        font-family: portico, Arial;
+                        position:relative;
+                    ">
+
+                        <div style="
+                            position:relative; 
+                            width:100%; 
+                            height:100%
+                        ">
+
+                            <img id="img`+i+`"style="
+                                position: absolute;
+                                top: 178px;
+                                left: 150px;
+                            ">
+
+                            <span style="
+                                color: #ffffff;
+                                font-size: 60px;
+                                position: absolute;
+                                top: 16px;
+                                left: 760px;
+                                width: 270px;
+                                text-align: center;
+                                z-index: 1;
+                                `+display+`
+                            ">`+strType+`</span>
+
+                            <img src="img/pixelBlack.png" style="
+                                width: 270px;
+                                height: 102px;
+                                position: absolute;
+                                left: 760px;
+                                `+display+`
+                            ">  
+
+                            <span style="
+                                position: absolute;
+                                top: 268px;
+                                left: 436px;
+                                font-size: 149px;
+                                text-align: center;
+                                width: 500px;
+                                `+display+`
+                            ">`+letters[i]+`</span>
+
+                            <span style="
+                                text-align: center;
+                                position: absolute;
+                                font-size: 33px;
+                                top: 526px;
+                                left: 187px;
+                            ">POR FAVOR NO RETIRE ESTE CÓDIGO,<br> PRUEBA DEPORTIVA. GRACIAS</span>
+
+                            <span style="
+                                position: absolute;
+                                font-size: 75px;
+                                top: 187px;
+                                left: 543px;
+                                `+display+`
+                            ">CÓDIGO</span>
+
+                            <img src="img/centerLogo.png" style="
+                                z-index: 6;
+                                width: 82px;
+                                position: absolute;
+                                left: 237px;
+                                top: 265px;
+                            ">`;
+                            
+                        //Agregar texto presonalizado si es un codigo de bandera final
+                        if(isFlag){
+                            element+=`
+                            <img src="img/flag.png" style="
+                                position: absolute;
+                                width: 124px;
+                                top: 239px;
+                                left: 810px;
+                            ">
+                            <span style="
+                                position: absolute;
+                                font-size: 61px;
+                                top: 234px;
+                                text-align: right;
+                                left: 440px;
+                                width: 334px;
+                                line-height: 70px;
+                            ">BANDERA 
+                            <span style="font-size: 99px;">FINAL</span>
+                            </span>`;
+                        }
+
+                    element +=`
+                        </div>
+                    </div>`;
+
+                //Agregar el elemento
+                $("#container").append(element);
+                
+                //Agregar salto de página cada 2 codigos
+                if(i%2 ==0){
+                        $(".code").css({"margin-bottom":"150px"})
+                }else{
+                        $(".code").css({" page-break-after":"always"})
+                }
+
+                //Generar nuemero aleatorio para cada codigo
+                var n = Math.round(Math.random()*(11111-99999)+parseInt(99999));
+
+                //Generar codigo azteca
+                let canvas = document.createElement('canvas');
+                try {
+                    bwipjs.toCanvas(canvas, {
+                            bcid:        'azteccode',       // Barcode type
+                            text:        letters[i]+"--"+n,    // Text to encode
+                            scale:       9,               // 3x scaling factor
+                            height:      10, 
+                            width:       10,             // Bar height, in millimeters
+                            includetext: false,            // Show human-readable text
+                            textxalign:  'center',        // Always good to set this
+                        });
+
+                    document.getElementById("img"+i).src = canvas.toDataURL('image/png');
+                } catch (e) {}
+            
+            }
+
+            //Llamada al metodo para imprimir los codigos generados tras tiempo de seguridad para realizar creación de codigos
+            setTimeout(
+            function() {
+                print();
+                //Activar logo de carga
+                $("#loading").hide();
+                $("form button").show();
+            }, 1000);
+            
+        }
+
+        //-----------------------------------------------------------------------------------------------------------------------------
+
+        /**
+        * METODO PARA IMPRIMIR LOS CÓDIGOS ZOA
+        */
+        function print(){
+            $("div#container").show(); 
+
+            var ventana = window.open('', 'PRINT', 'height=400,width=600');
+            ventana.document.write('<html><head><title>' + document.title + '</title>');
+            ventana.document.write('</head><body >');
+            ventana.document.write(document.getElementById("container").innerHTML);
+            ventana.document.write('</body></html>');
+            ventana.document.close();
+            ventana.focus();
+            ventana.print();
+
+            $("div#container").hide();     
+        };
+
+
+        //-----------------------------------------------------------------------------------------------------------------------------
+
+
+        /**
+        * METODO PARA GENERAL UN ARRAY CON X NUMERO DE LETRAS EN  EL FORMATO x, y, z, aa, ab, ac, ad
+        */
+        function incremtLetters(size, abc, initWord){
+            var array = new Array();
+            var result = initWord;
+
+            //Primer valor
+            array.push(result)
+            //Obtener el numero de veces indicado
+            for(var i=0; i<size; i++){
+                result = nextLetter(result, abc);
+                array.push(result);
+            }
+
+            return array
+
+            //------------------------------------------------------------------------------------------------------
+            // FUNCIONES INTERNAS
+            //------------------------------------------------------------------------------------------------------
+
+            //Aumentar por la izquierda
+            function nextLetter(string, abc){
+
+                //Recorrer la palabara 
+                for(var i = string.length-1; i>=0; i--){
+                    var letter  = string.substring(i, i+1);
+
+                    //Comprobar si la letra en cuestion es igual a la ultima del abecedario
+                    if(letter == lastLetter(abc)){
+                        //Cambiar la ultima letra por la primera
+                        string = setCharAt(string, i, getNext(abc, letter));
+                        //Si todas son la ultima letra agregamos digito
+                        
+                        if(i==0){
+                            return string.substring(0, 1)+string;
+                        }
+                        //Llamada recursiva
+                        nextLetter(string.substring(0, i), abc)
+
+                    }else{
+                        //Cambiar letra por la siguiente del abecedario
+                        string = setCharAt(string, i, getNext(abc, string.substring(i, i+1)));
+                        return string;
+                    }
+                    
+                }
+            }
+
+            //------------------------------------------------------------------------------------------------------
+
+            /**
+            * METODO PARA CAMBIAR LA LETRA DE UNA POSICION DETERMINADA
+            */
+            function setCharAt(str,index,chr) {
+                if(index > str.length-1) return str;
+                return str.substr(0,index) + chr + str.substr(index+1);
+            }
+
+            //------------------------------------------------------------------------------------------------------
+
+            /**
+            * METODO PARA OBTENER LA SIGUIENTE LETRA DEL ABECEDARIO A PARTIR DE UNA PASADA POR PARAMETRO
+            */
+            function getNext(abc, l){
+                letters = Array.from(abc);
+
+                for (var i=0; i<letters.length; i++){
+
+                    if(letters[i]==l){
+                        //Si es la ultima letrar enviar la primera
+                        if(i == letters.length-1){
+                            return letters[0];
+                        }
+                        //Si no enviar la siguiente
+                        return  letters[i+1];
+                    }
+                }
+            }
+        
+            //------------------------------------------------------------------------------------------------------
+
+            /**
+            * METODO PARA OBTENER LA ULTIMA LETRA DE UNA CADENA DE TEXTO
+            */
+            function lastLetter(string){
+                return string.substring(string.length-1, string.length);
+            }
+
+        }
+
+    </script>
+</html>
