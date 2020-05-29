@@ -337,23 +337,25 @@
             //Generar cada uno de los códigos
             for(var i=0; i<letters.length; i++){
                 var strType;
+				var type=0;
                 var isFlag=false;
                 var display=""
 
                 //Comprobar de que tipo es el codigo que se va a generar
                 if(i<t1){
+					type=1;
                     strType="TIPO 1";
-                    console.log("t1");
                 }else if(i<t2){
+					type=2;
                     strType="TIPO 2";
-                    console.log("t2");
                 }else if(i<t3){
+					type=3;
                     strType="TIPO 3";
-                    console.log("t3");
                 }else if(i<t4){
+					type=4;
                     strType="TIPO ?";
-                    console.log("t4");
                 }else{
+					type=5;
                     isFlag=true;
                     display="display:none";
                     console.log("bandera");
@@ -479,7 +481,7 @@
                 try {
                     bwipjs.toCanvas(canvas, {
                             bcid:        'azteccode',       // Barcode type
-                            text:        letters[i]+"--"+n,    // Text to encode
+                            text:        letters[i]+"-"+type+"-"+n,    // Text to encode
                             scale:       9,               // 3x scaling factor
                             height:      10, 
                             width:       10,             // Bar height, in millimeters
